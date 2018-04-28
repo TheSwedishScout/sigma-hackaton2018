@@ -1,27 +1,50 @@
-/*screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
 
-if (screen.lockOrientationUniversal("portrait")) {
-  // orientation was locked
-} else {
-  // orientation lock failed
-}*/
       var map; //skapa en variable att spara kartan i, skaar den utanför då den behövs i flera olika funktioner
       var draws = 0; //en variabel som sparar värdet på hur många gånger som positionen hämtats
       var myCirkel;  // en variabel att spara den utritade positionen för att nolla den gamla innan en ny skapas
       var wpid;
-      var pointsOfIntrest = [
 
+      var pointsOfIntrest = [
         {
-          name: "matchmuseum",
+          name: "Match museum",
           center: {lat: 57.784632, lng: 14.159612},
           //57.780455, 14.17203357.784632, 14.159612
           storlek: 100,
           played: 0000000000000,
-          information: "mdjn jvh wedsjkh sd vjksl jsd lsd jklas hnsd fjösdln asndj najö fajsl dnan fas fkda fnjkadö lsd fadfa",
-          image: "../images/hat.png",
+          information: "The matchstick museum is hot this year.<br> Opening hours: 11-15",
+          image: "images/matchstickmuseum.jpg",
           game: function (info){print(info)}
+        },
+        {
+          name: "Birdmuseum",
+          center: {lat: 57.781601, lng: 14.144533},
+          storlek: 100,
+          played: 0000000000000,
+          information: "The bird museum is flying high.<br> Opening hours: 11-17",
+          image: "images/birdmuseum.jpg",
+          game: function (info){print(info)}
+        },
+        {
+          name: "Sofiakyrkan",
+          center: {lat: 57.781988, lng: 14.159574},
+          //57.780455, 14.17203357.784632, 14.159612
+          storlek: 100,
+          played: 0000000000000,
+          information: "God is everywhere.<br> Opening hours: until gods kingdom comes",
+          image: "images/sofiakyrkan.jpg",
+          game: function (info){print(info)}
+        },
+        {
+          name: "Staty till minne av Magnus Ladulås tupplur",
+          center: {lat: 57.782459, lng: 14.163478},
+          //57.780455, 14.17203357.784632, 14.159612
+          storlek: 100,
+          played: 0000000000000,
+          information: "Mange Double L softar.<br> Opening hours: Never, the barn is locked",
+          image: "images/mange.jpg",
+          game: function (info){print(info)}
+        },
 
-        }
       ];
 function distans(myPos, toPos){
   /*
@@ -76,11 +99,9 @@ function drawLocation(position){ // draw your location o the map and runs the di
       pointsOfIntrest[i].game(i);
 
     }
-      //console.log(pointsOfIntrest[i].name + " " + distans(pos, pointsOfIntrest[i].center));
-      //box.innerText = pointsOfIntrest[2].name + " " + distans(pos, pointsOfIntrest[2].center);
+
   }
 
-  //console.log(draws);
 
 draws++ // ökar antalet draws som har gjorts
 }
@@ -113,6 +134,7 @@ function myLocation(){ // whit sucsessfully got location
   }
 
 }
+
 
 function init() {
   document.addEventListener("DOMContentLoaded", initMap)
@@ -147,14 +169,104 @@ function initMap() {
       //maxZoom: zoom,
       //minZoom: zoom,
 
-
+      styles: [
+    {
+        "featureType": "administrative.country",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "saturation": "-1"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "weight": "1.00"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+]
     });
 
 
     // Construct the circle for each value in citymap.
     // Note: We scale the area of the circle based on the storlek.
     for (var location in pointsOfIntrest) {
-      // Add the circle for this city to the map.
       var locationCircle = new google.maps.Circle({
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -165,16 +277,60 @@ function initMap() {
         center: pointsOfIntrest[location].center,
         radius: Math.sqrt(pointsOfIntrest[location].storlek)
       });
+      (function (locationCircle, location ) {
+        var infowindow = new google.maps.InfoWindow({
+          content: "This is a proof of concept!",
+          map: map
 
-      // google.maps.event.addEventListener(locationCircle, 'click', function() {
-      //   addToPoiArray(locationCircle.center);
-      //   renderRoute();
-      // });
+        })
+
+        google.maps.event.addListener(locationCircle, 'mouseover', function() {
+          var x = event.clientX;     // Get the horizontal coordinate
+          var y = event.clientY;     // Get the vertical
+          var infocard = document.getElementById('hoverInfo');
+          infocard.innerHTML = '<h3>'+pointsOfIntrest[location].name+'</h3><p>'+pointsOfIntrest[location].information+"</p>";
+          infocard.style.left = x+"px";
+          infocard.style.top = y+"px";
+          infocard.style.display = "block";
+          infocard.addEventListener('mouseout', function () {
+            infocard.style.display = "none";
+
+          })
+                // infowindow.open(map, locationCircle);
+            });
+
+            // assuming you also want to hide the infowindow when user mouses-out
+            google.maps.event.addListener(locationCircle, 'mouseout', function() {
+              var infocard = document.getElementById('hoverInfo');
+              infocard.style.display = "none";
+
+                // infowindow.close();
+            });
+        // Add the circle for this city to the map.
+
+        google.maps.event.addListener(locationCircle, 'click', function() {
+          console.log("Click on location no:" + location);
+          pointsOfIntrest[location].game(location);
+          //infoWindow.open(map, this);
+        });
+      }(locationCircle, location))
     }
     myLocation();
-    //document.addEventListener("DOMContentLoaded", myLocation);
 
     directionsDisplay.setMap(map);
+    directionsDisplay.setOptions({suppressMarkers: true});
     renderRoute(directionsService, directionsDisplay);
+  }
+}
+
+function create(i, locationCircle) {
+  debugger
+  return function (i, locationCircle) {
+    debugger;
+    google.maps.event.addListener(locationCircle, 'click', function() {
+      console.log("Click on location no:" + location);
+      pointsOfIntrest[location].game(location);
+    });
+
   }
 }

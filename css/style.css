@@ -4,50 +4,6 @@
 	font-family: sans-serif;
 }
 
-#dragndrop{
-	overflow: hidden;
-	background-color: beige;
-}
-#dragndrop ul{
-	list-style: none;
-}
-#dragndrop #logos {
-	float: left;
-	width: 50%;
-	height: 100vh-30px;
-}
-
-#dragndrop #logos li {
-	height: 28vh;
-	
-}
-
-#dragndrop #bottles {
-	float: right;
-	width: 50%;
-	height: 100vh-30px;
-}
-
-#dragndrop #bottles li {
-	height: 28vh;
-	
-}
-
-#dragndrop .group:after {
-	clear: both;
-}
-
-#dragndrop .logo {
-	height: 170px;
-    margin: 5px 30px;
-}
-
-#dragndrop .bottle {
-	height: 170px;
-    margin: 5px 30px;
-
-}
-
 
 html, body {
 	height: 100%;
@@ -58,18 +14,37 @@ html, body {
 	height: 100%;
 	z-index: 1;
 }
-#game{
+
+#information{
+
 	position: absolute;
 	z-index: 3;
 	left: 0;
 	top:0;
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-rows: 40% auto;
+	grid-template-columns: 100%;
+	background: #fff;
+
 }
-#sound{
-    background-image: url("../images/sprites.png");
-    background-position: -210px -210px;
-    position:absolute;
-    top:0;
-    right:0;
-    width:24px;
-    height:24px;
+#information > img{
+	max-height: 100%;
+}
+#information.hidden{
+	display: none;
+}
+#hoverInfo{
+	position:absolute;
+	width: auto;
+	max-width: 300px;
+	min-height: 100px;
+	background: #FFF;
+	transform: translate(-50%, -100%);
+	z-index: 100;
+	display: none;
+	border-radius: 5px;
+	padding: 7px;
+	box-shadow: 3px 3px 5px rgba(14,14,14,0.5);
 }
