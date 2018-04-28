@@ -19,7 +19,7 @@ if (screen.lockOrientationUniversal("portrait")) {
           played: 0000000000000,
           information: "mdjn jvh wedsjkh sd vjksl jsd lsd jklas hnsd fjösdln asndj najö fajsl dnan fas fkda fnjkadö lsd fadfa",
           image: "../images/hat.png",
-          game: function (id){print(id)}
+          game: function (info){print(info)}
 
         }
       ];

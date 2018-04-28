@@ -10,6 +10,14 @@ var game = document.getElementById('game');
 function isPlaying(audio) { return !audio.paused; }
 
 
-function print(text) {
+function print(id) {
+    //#information
     //Display the onformation of the location
+    var elem = document.getElementById('information');
+    var infoElem = document.createElement('div');
+    infoElem.innerText = pointsOfIntrest[id].information;
+    var imageElem = document.createElement('img');
+    imageElem.src = pointsOfIntrest[id].image;
+    elem.appendChild(imageElem);
+    elem.appendChild(infoElem);
 }
