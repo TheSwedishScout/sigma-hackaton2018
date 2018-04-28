@@ -28,31 +28,37 @@
 //   })
 
 function renderRoute(directionsService, directionsDisplay) {
-  var routeToRender = {
-    // origin: poiArray[0],
-    // destination: poiArray[poiArray.length - 1],
-    // waypoints: function() {
-    //   arrayToReturn = [];
-    //   for (i = 1; i < poiArray.length - 1; i++) {
-    //     arrayToReturn.push({
-    //       location: poiArray[i],
-    //       stopover: false
-    //     })
-    //     return arrayToReturn
-    //   }
-    // }
+// -- I wish this worked --
+  // waypts = [];
+  // for (i = 1; i < poiArray.length - 1; i++) {
+  //   waypts.push({
+  //     location: poiArray[i].value,
+  //     stopover: true,
+  //   });
+  // var routeToRender = {
+  //   origin: poiArray[0],
+  //   destination: poiArray[poiArray.length - 1],
+  //   waypoints: waypts
+  //   }
+// -- End of I wish this worked
 
 // --- Test code ---
-  origin: {lat: 57.784668, lng: 14.159639},
-  destination: {lat: 57.781601, lng: 14.144533},
+  var routeToRender = {
+  origin: {lat: 57.784668, lng: 14.159639}, // Matchstickmuseum
+  destination: {lat: 57.781601, lng: 14.144533}, // Birdmuseum
   waypoints: [
     {
-      location: {lat: 57.782459, lng: 14.163478},
+      location: {lat: 57.782459, lng: 14.163478}, // Magne L.L. staue
       stopover: true
-    }],
+    },
+    {
+      location: {lat:57.781988, lng: 14.159574}, // Sofiakyrkan
+      stopover: true
+    }
+  ],
   provideRouteAlternatives: false,
   travelMode: 'WALKING',
-  //unitSystem: google.maps.UnitSystem.METRIC
+  unitSystem: google.maps.UnitSystem.METRIC
 // --- End of test code ---
   }
 
