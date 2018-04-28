@@ -18,8 +18,8 @@ if (screen.lockOrientationUniversal("portrait")) {
           storlek: 100,
           played: 0000000000000,
           information: "mdjn jvh wedsjkh sd vjksl jsd lsd jklas hnsd fjösdln asndj najö fajsl dnan fas fkda fnjkadö lsd fadfa",
-          image: "../images/hat.png"
-          game: function (id){print(id)}
+          image: "images/hat.png",
+          game: function (info){print(info)}
 
         }
       ];
@@ -73,7 +73,7 @@ function drawLocation(position){ // draw your location o the map and runs the di
       //box.style.background = "#F00"
       //box.innerText = pointsOfIntrest[i].name;
       navigator.geolocation.clearWatch(wpid);
-      pointsOfIntrest[i].game(i);
+      pointsOfIntrest[i].game(i); //I is the position in the list
       
     }
       //console.log(pointsOfIntrest[i].name + " " + distans(pos, pointsOfIntrest[i].center));
@@ -146,6 +146,98 @@ function initMap() {
 
 
       // style generated on https://snazzymaps.com/
+      styles: [
+    {
+        "featureType": "administrative.country",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "saturation": "-1"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "weight": "1.00"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+]
       //styles: [{"featureType": "all","elementType": "geometry","stylers": [{"color": "#f6fb00"}]},{"featureType": "all","elementType": "labels.text","stylers": [{"visibility": "off"}]},{"featureType": "all","elementType": "labels.text.fill","stylers": [    {"gamma": 0.01    },    {"lightness": 20    }]},{"featureType": "all","elementType": "labels.text.stroke","stylers": [    {"saturation": -31    },    {"lightness": -33    },    {"weight": 2    },    {"gamma": 0.8    }]},{"featureType": "all","elementType": "labels.icon","stylers": [    {"visibility": "off"    }]},{"featureType": "landscape","elementType": "geometry","stylers": [    {"lightness": 30    },    {"saturation": 30    },    {"color": "#000000"    }]},{"featureType": "poi","elementType": "geometry","stylers": [    {"saturation": 20    }]},{"featureType": "poi","elementType": "labels.text","stylers": [    {"visibility": "off"    }]},{"featureType": "poi.park","elementType": "geometry","stylers": [    {"lightness": 20    },    {"saturation": -20    }]},{"featureType": "road","elementType": "geometry","stylers": [    {"lightness": 10    },    {"saturation": -30    }]},{"featureType": "road","elementType": "geometry.stroke","stylers": [    {"saturation": 25    },    {"lightness": 25    }]},{"featureType": "road","elementType": "labels.text","stylers": [    {"visibility": "off"    }]},{"featureType": "water","elementType": "all","stylers": [    {"lightness": -20    }]}]
     });
     
