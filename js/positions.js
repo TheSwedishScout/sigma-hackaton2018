@@ -10,7 +10,7 @@ if (screen.lockOrientationUniversal("portrait")) {
       var myCirkel;  // en variabel att spara den utritade positionen för att nolla den gamla innan en ny skapas
       var wpid;
       var pointsOfIntrest = [
-        
+
         {
           name: "matchmuseum",
           center: {lat: 57.784632, lng: 14.159612},
@@ -18,7 +18,7 @@ if (screen.lockOrientationUniversal("portrait")) {
           storlek: 100,
           played: 0000000000000,
           information: "mdjn jvh wedsjkh sd vjksl jsd lsd jklas hnsd fjösdln asndj najö fajsl dnan fas fkda fnjkadö lsd fadfa",
-          image: "../images/hat.png"
+          image: "../images/hat.png",
           game: function (id){print(id)}
 
         }
@@ -26,7 +26,7 @@ if (screen.lockOrientationUniversal("portrait")) {
 function distans(myPos, toPos){
   /*
   code to calculate the distance betwene 2 gps cordinates is fetched from
-  http://www.movable-type.co.uk/scripts/latlong.html 
+  http://www.movable-type.co.uk/scripts/latlong.html
   and simplified to make me figure out whats hapening
   */
   lng1 = myPos.lng;
@@ -36,7 +36,7 @@ function distans(myPos, toPos){
   var R = 6371e3; // metres around the equator
   var latitude1 = lat1*(Math.PI / 180); // get latitude in radians
   var latitude2 = lat2*(Math.PI / 180);
-  var deltaLatitude = (lat2-lat1)*(Math.PI / 180); 
+  var deltaLatitude = (lat2-lat1)*(Math.PI / 180);
   var deltaLongitude  = (lng2-lng1)*(Math.PI / 180);
 
   var a = Math.sin(deltaLatitude/2) * Math.sin(deltaLatitude/2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(deltaLongitude /2) * Math.sin(deltaLongitude /2);
@@ -74,12 +74,12 @@ function drawLocation(position){ // draw your location o the map and runs the di
       //box.innerText = pointsOfIntrest[i].name;
       navigator.geolocation.clearWatch(wpid);
       pointsOfIntrest[i].game(i);
-      
+
     }
       //console.log(pointsOfIntrest[i].name + " " + distans(pos, pointsOfIntrest[i].center));
       //box.innerText = pointsOfIntrest[2].name + " " + distans(pos, pointsOfIntrest[2].center);
-  } 
-  
+  }
+
   //console.log(draws);
 
 draws++ // ökar antalet draws som har gjorts
@@ -101,12 +101,12 @@ function myLocation(){ // whit sucsessfully got location
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     var geo_options = {
-      enableHighAccuracy: true, //true 
+      enableHighAccuracy: true, //true
       maximumAge        : 30000
     };
     // get position whit parameters above
     wpid=navigator.geolocation.watchPosition(drawLocation,geo_error,geo_options);
-      
+
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
@@ -120,13 +120,15 @@ function init() {
 
 function initMap() {
   // Create the map.
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
   navigator.geolocation.getCurrentPosition(startLocation,geo_error ,{
-    enableHighAccuracy: true, 
-    maximumAge        : 30000, 
+    enableHighAccuracy: true,
+    maximumAge        : 30000,
     timeout           : 2700000
   });
   function startLocation(position) {
-    
+
     var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
@@ -145,12 +147,8 @@ function initMap() {
       //minZoom: zoom,
 
 
-      // style generated on https://snazzymaps.com/
-      //styles: [{"featureType": "all","elementType": "geometry","stylers": [{"color": "#f6fb00"}]},{"featureType": "all","elementType": "labels.text","stylers": [{"visibility": "off"}]},{"featureType": "all","elementType": "labels.text.fill","stylers": [    {"gamma": 0.01    },    {"lightness": 20    }]},{"featureType": "all","elementType": "labels.text.stroke","stylers": [    {"saturation": -31    },    {"lightness": -33    },    {"weight": 2    },    {"gamma": 0.8    }]},{"featureType": "all","elementType": "labels.icon","stylers": [    {"visibility": "off"    }]},{"featureType": "landscape","elementType": "geometry","stylers": [    {"lightness": 30    },    {"saturation": 30    },    {"color": "#000000"    }]},{"featureType": "poi","elementType": "geometry","stylers": [    {"saturation": 20    }]},{"featureType": "poi","elementType": "labels.text","stylers": [    {"visibility": "off"    }]},{"featureType": "poi.park","elementType": "geometry","stylers": [    {"lightness": 20    },    {"saturation": -20    }]},{"featureType": "road","elementType": "geometry","stylers": [    {"lightness": 10    },    {"saturation": -30    }]},{"featureType": "road","elementType": "geometry.stroke","stylers": [    {"saturation": 25    },    {"lightness": 25    }]},{"featureType": "road","elementType": "labels.text","stylers": [    {"visibility": "off"    }]},{"featureType": "water","elementType": "all","stylers": [    {"lightness": -20    }]}]
     });
-    
 
-   
 
     // Construct the circle for each value in citymap.
     // Note: We scale the area of the circle based on the storlek.
@@ -166,14 +164,14 @@ function initMap() {
         center: pointsOfIntrest[location].center,
         radius: Math.sqrt(pointsOfIntrest[location].storlek)
       });
-    
+
+      // google.maps.event.addEventListener(locationCircle, 'click', function() {
+      //   addToPoiArray(locationCircle.center);
+      //   renderRoute();
+      // });
     }
     myLocation();
     //document.addEventListener("DOMContentLoaded", myLocation);
   }
-        
+  renderRoute(directionsService, directionsDisplay);
 }
-
-
-
-
