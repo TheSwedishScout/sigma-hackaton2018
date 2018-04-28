@@ -42,25 +42,28 @@ function renderRoute(directionsService, directionsDisplay) {
     //   }
     // }
 
-  origin: 'Chicago, IL',
-  destination: 'Los Angeles, CA',
+// --- Test code ---
+  origin: {lat: 57.784668, lng: 14.159639},
+  destination: {lat: 57.781601, lng: 14.144533},
   waypoints: [
     {
-      location: 'Joplin, MO',
-      stopover: false
-    },{
-      location: 'Oklahoma City, OK',
+      location: {lat: 57.782459, lng: 14.163478},
       stopover: true
     }],
   provideRouteAlternatives: false,
-  travelMode: 'DRIVING',
-  drivingOptions: {
-    departureTime: new Date(/* now, or future date */),
-    trafficModel: 'pessimistic'
-  },
-  unitSystem: google.maps.UnitSystem.METRIC
+  travelMode: 'WALKING',
+  //unitSystem: google.maps.UnitSystem.METRIC
+// --- End of test code ---
+  }
 
-  };
-
-  directionsService.route(routeToRender)
+  directionsService.route(routeToRender, function(response, status) {
+    console.log("Starting directionsService.route()")
+    if (status == google.maps.DirectionsStatus.OK) {
+      console.log("status OK");
+      directionsDisplay.setDirections(response);
+      console.log("Status OK OK");
+    } else {
+      console.log("Fan, nu blev det fel. Kolla i route.js, något gick fel med directionsService.route() ")
+    }
+  })
 }

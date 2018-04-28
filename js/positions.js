@@ -120,15 +120,16 @@ function init() {
 
 function initMap() {
   // Create the map.
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+
+
   navigator.geolocation.getCurrentPosition(startLocation,geo_error ,{
     enableHighAccuracy: true,
     maximumAge        : 30000,
     timeout           : 2700000
   });
   function startLocation(position) {
-
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
     var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
@@ -172,6 +173,8 @@ function initMap() {
     }
     myLocation();
     //document.addEventListener("DOMContentLoaded", myLocation);
+
+    directionsDisplay.setMap(map);
+    renderRoute(directionsService, directionsDisplay);
   }
-  renderRoute(directionsService, directionsDisplay);
 }
